@@ -10,9 +10,10 @@ import {
 } from "../constants/action-types";
 import { toast } from "react-toastify";
 
-export const getCoupon = (payload) => (dispacth) => dispacth(getCouponInit());
+export const getCoupon = (payload) => (dispacth) =>
+  dispacth(getCouponInit(payload));
 
-const getCouponInit = () => (dispacth) => {
+const getCouponInit = (company_id) => (dispacth) => {
   dispacth({
     type: GET_COUPON_LIST.GET_COUPON_LIST_INITLIZATION,
     // payload,
@@ -22,6 +23,7 @@ const getCouponInit = () => (dispacth) => {
     {
       start: 0,
       limit: 10,
+      company_id,
     },
     (res) => dispacth(getCouponSuccess(res.data.list)),
     (err) => dispacth(getCouponError(err)),
@@ -44,49 +46,41 @@ const getCouponError = (payload) => (dispacth) => {
   });
 };
 
-export const deleteCoupon = (
-  data,
-  isEdit = 0,
-  setLoading,
-  isDelete = false
-) => (dispacth) =>
-  dispacth(createCouponInit(data, isEdit, setLoading, isDelete));
+export const deleteCoupon =
+  (data, isEdit = 0, setLoading, isDelete = false) =>
+  (dispacth) =>
+    dispacth(createCouponInit(data, isEdit, setLoading, isDelete));
 
-export const createCoupon = (
-  data,
-  isEdit = 0,
-  setModal,
-  isDelete = false,
-  setApiError
-) => (dispacth) =>
-  dispacth(createCouponInit(data, isEdit, setModal, isDelete, setApiError));
+export const createCoupon =
+  (data, isEdit = 0, setModal, isDelete = false, setApiError) =>
+  (dispacth) =>
+    dispacth(createCouponInit(data, isEdit, setModal, isDelete, setApiError));
 
-const createCouponInit = (data, isEdit, setModal, isDelete, setApiError) => (
-  dispacth
-) => {
-  dispacth({
-    type: CREATE_COUPON_ACTION.CREATE_COUPON_ACTION_INITLIZATION,
-  });
-  apiCall(
-    isEdit ? COUPON_UD(isEdit) : COUPON_CREATE,
-    data,
-    (res) => {
-      dispacth(createCouponSuccess(res.data));
-      setModal(false);
-    },
-    (err) => {
-      if (setApiError) {
+const createCouponInit =
+  (data, isEdit, setModal, isDelete, setApiError) => (dispacth) => {
+    dispacth({
+      type: CREATE_COUPON_ACTION.CREATE_COUPON_ACTION_INITLIZATION,
+    });
+    apiCall(
+      isEdit ? COUPON_UD(isEdit) : COUPON_CREATE,
+      data,
+      (res) => {
+        dispacth(createCouponSuccess(res.data));
+        setModal(false);
+      },
+      (err) => {
+        if (setApiError) {
           setApiError(err.error.message);
         }
-      dispacth(createCouponError(err));
-      // setModal(false);
-    },
-    isDelete ? METHOD.DELETE : isEdit ? METHOD.PATCH : METHOD.POST,
-    {
-      addAuthrize: true,
-    }
-  );
-};
+        dispacth(createCouponError(err));
+        // setModal(false);
+      },
+      isDelete ? METHOD.DELETE : isEdit ? METHOD.PATCH : METHOD.POST,
+      {
+        addAuthrize: true,
+      }
+    );
+  };
 const createCouponSuccess = (payload) => (dispacth) => {
   toast.success(payload.message);
   dispacth({

@@ -1,7 +1,7 @@
 import { Table } from "reactstrap";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCompany, getPlan, getProducts } from "../redux/action";
+import { getCompany, getPlan, getProducts, logout } from "../redux/action";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPen,
@@ -13,9 +13,11 @@ import {
 import EditPlanModal from "../components/Plan/EditPlanModal";
 import { Button } from "reactstrap";
 import Select from "react-select";
+import { useHistory } from "react-router";
 
 export default function Plan() {
   const dispatch = useDispatch();
+  const { push } = useHistory();
   const planList = useSelector((state) => state.PlanReducer.planList);
   const companyList = useSelector((state) => state.CompanyReducer.companyList);
   const loading = useSelector((state) => state.PlanReducer.loading);
@@ -59,74 +61,70 @@ export default function Plan() {
           placeholder="Select company"
         />
       </div>
-      {planList && planList.length ? (
-        <Table className="tablesorter" responsive>
-          <thead className="text-primary">
-            <tr>
-              <th>Plan</th>
-              <th className="text-center">description</th>
-              <th className="text-center">currency</th>
-              <th className="text-center">amount</th>
-              <th className="text-center">interval</th>
-              <th className="text-center">interval count</th>
-              {/* <th className="text-center">Delete</th> */}
-              <th className="text-center">
-                <FontAwesomeIcon
-                  className="cursor-pointer"
-                  size="2x"
-                  icon={faShare}
-                />
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {planList &&
-              planList.map((item) => (
-                <tr>
-                  <td>{item.title}</td>
-                  <td className="text-center">{item.description}</td>
-                  <td className="text-center">{item.currency}</td>
-                  <td className="text-center">{item.amount}</td>
-                  <td className="text-center">{item.plan_interval}</td>
-                  <td className="text-center">{item.interval_count}</td>
-                  {/* <td className="text-center">
-                  {" "}
-                  <FontAwesomeIcon
-                    className="cursor-pointer"
-                    onClick={() => {
-                      setPlan(item);
-                      setModal(true);
-                    }}
-                    size="1x"
-                    icon={faPen}
-                  />
-                </td> */}
-                  {/* <td className="text-center">
-                    {" "}
-                    <FontAwesomeIcon
-                      onClick={() => {
-                        setLoadingPlan(true);
-                        dispatch(
-                          deletePlan(undefined, item.id, setLoadingPlan, true)
-                        );
-                      }}
-                      className="cursor-pointer"
-                      size="1x"
-                      icon={faTrash}
-                    />
-                  </td> */}
-                  <td className="text-center">
-                    <Button>Subscribe</Button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </Table>
-      ) : (
-        <div>
-          <h3 className="d-inline">No Plans Found</h3>
+      <div class="content mt-5 mb-3 pt-5">
+        <div class="row">
+          {planList && planList.length ? (
+            <>
+              {planList &&
+                planList.map((item) => (
+                  <div class="col-md-4 my-2">
+                    <div class="card p-3 mb-2">
+                      <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-row align-items-center">
+                          <div class="icon">
+                            {" "}
+                            <i class="bx bxl-mailchimp"></i>{" "}
+                          </div>
+                          <div class="ms-2 c-details">
+                            <h6 class="mb-0">{item.amount}</h6>{" "}
+                            <span>{item.currency}</span>
+                          </div>
+                        </div>
+                        <div>
+                          <div
+                            class="badge cursor-pointer"
+                            // onClick={() => {
+                            //   setProduct(item);
+                            //   setModal(true);
+                            // }}
+                          >
+                            {" "}
+                            {item.interval_count}
+                          </div>
+                          <div class="badge cursor-pointer">
+                            {" "}
+                            {item.plan_interval}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mt-5">
+                        <h3 class="heading">{item.title}</h3>
+                        <div class="mt-3">
+                          <Button
+                            onClick={() => {
+                              dispatch(logout(push));
+                            }}
+                          >
+                            Subscribe
+                          </Button>
+                          <div class="mt-3">
+                            {/* <span class="text1">
+                          32 Applied <span class="text2">of 50 capacity</span>
+                        </span> */}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </>
+          ) : (
+            <div>
+              <h3 className="d-inline">No Plans Found</h3>
+            </div>
+          )}
         </div>
-      )}
+      </div>
       {/* <EditPlanModal
         className="plan-modal"
         {...{ modal, setModal, plan, loadingPlan, setLoadingPlan }}

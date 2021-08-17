@@ -1,52 +1,80 @@
 import { Table } from "reactstrap";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCoupon, getCoupon } from "../redux/action";
+import { getCompany, getCoupon, getProducts } from "../redux/action";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
-import EditCouponModal from "../components/Coupon/EditCouponModal";
+import {
+  faPen,
+  faTrash,
+  faPlus,
+  faFileInvoiceDollar,
+  faShare,
+} from "@fortawesome/free-solid-svg-icons";
+import EditPlanModal from "../components/Plan/EditPlanModal";
+import { Button } from "reactstrap";
+import Select from "react-select";
 
-export default function Coupon() {
+export default function Plan() {
   const dispatch = useDispatch();
   const couponList = useSelector((state) => state.CouponReducer.couponList);
   const loading = useSelector((state) => state.CouponReducer.loading);
+  const companyList = useSelector((state) => state.CompanyReducer.companyList);
   const [modal, setModal] = useState(false);
-  const [loadingCoupon, setLoadingCoupon] = useState(false);
-  const [coupon, setCoupon] = useState({});
+  const [selectedCompany, setSelectedCompany] = useState({});
+  const [loadingPlan, setLoadingPlan] = useState(false);
   useEffect(() => {
-    if (!modal) {
-      setLoadingCoupon(false);
-      setCoupon({});
-    }
-  }, [modal]);
+    dispatch(getCompany());
+  }, []);
   useEffect(() => {
-    if (!loadingCoupon) {
-      dispatch(getCoupon());
+    if (companyList.length) {
+      dispatch(getCoupon(5||companyList[0].id));
+      setSelectedCompany({
+        label: companyList[0].Company_name,
+        value: companyList[0].id,
+      });
     }
-  }, [loadingCoupon]);
+  }, [companyList]);
+  const refetchPlan = (selectedOption) => {
+    setSelectedCompany(selectedOption);
+    dispatch(getCoupon(selectedOption.value));
+  };
   if (loading)
     return (
-      <div className="content">
+      <div className="container">
         <div className="cover-spin" role="status" />
       </div>
     );
   return (
-    <div className="content s-auto">
+    <div className="custom-plan container mt-72 s-auto">
+      <div className="d-flex justify-content-end mb-4">
+        Company &nbsp; : &nbsp;
+        <Select
+          className="w-25"
+          value={selectedCompany}
+          options={companyList.map(({ id: value, Company_name: label }) => ({
+            label,
+            value,
+          }))}
+          onChange={refetchPlan}
+          placeholder="Select company"
+        />
+      </div>
       {couponList && couponList.length ? (
         <Table className="tablesorter" responsive>
           <thead className="text-primary">
             <tr>
-              <th>Coupon</th>
-              {/* <th className="text-center">Edit</th> */}
-              <th className="text-center">Delete</th>
+              <th>Company Name</th>
+              <th className="text-center">code</th>
+              <th className="text-center">amount off</th>
+              <th className="text-center">duration</th>
+              <th className="text-center">duration in months</th>
+              <th className="text-center">percent off</th>
+              {/* <th className="text-center">Delete</th> */}
               <th className="text-center">
                 <FontAwesomeIcon
                   className="cursor-pointer"
                   size="2x"
-                  onClick={() => {
-                    setModal(true);
-                  }}
-                  icon={faPlus}
+                  icon={faShare}
                 />
               </th>
             </tr>
@@ -54,66 +82,55 @@ export default function Coupon() {
           <tbody>
             {couponList &&
               couponList.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.name}</td>
+                <tr>
+                  <td>{item.CompanyName}</td>
+                  <td className="text-center">{item.code}</td>
+                  <td className="text-center">{item.amount_off}</td>
+                  <td className="text-center">{item.duration}</td>
+                  <td className="text-center">{item.duration_in_months}</td>
+                  <td className="text-center">{item.percent_off}</td>
                   {/* <td className="text-center">
                   {" "}
                   <FontAwesomeIcon
                     className="cursor-pointer"
                     onClick={() => {
-                      setCoupon(item);
+                      setPlan(item);
                       setModal(true);
                     }}
                     size="1x"
                     icon={faPen}
                   />
                 </td> */}
-                  <td className="text-center">
+                  {/* <td className="text-center">
                     {" "}
                     <FontAwesomeIcon
                       onClick={() => {
-                        setLoadingCoupon(true);
+                        setLoadingPlan(true);
                         dispatch(
-                          deleteCoupon(
-                            undefined,
-                            item.id,
-                            setLoadingCoupon,
-                            true
-                          )
+                          deletePlan(undefined, item.id, setLoadingPlan, true)
                         );
                       }}
                       className="cursor-pointer"
                       size="1x"
                       icon={faTrash}
                     />
+                  </td> */}
+                  <td className="text-center">
+                    <Button>Subscribe</Button>
                   </td>
-                  <td></td>
                 </tr>
               ))}
           </tbody>
         </Table>
       ) : (
         <div>
-          <h3 className="d-inline">Create Coupon</h3>
-          {"  "}(
-          <span className="text-warning d-inline">No Coupons Created yet</span>)
-          <br />
-          <br />
-          <br />
-          <FontAwesomeIcon
-            className="cursor-pointer"
-            size="3x"
-            onClick={() => {
-              setModal(true);
-            }}
-            icon={faPlus}
-          />
+          <h3 className="d-inline">No Coupons Found</h3>
         </div>
       )}
-      <EditCouponModal
-        className="coupon-modal"
-        {...{ modal, setModal, coupon, loadingCoupon, setLoadingCoupon }}
-      />
+      {/* <EditPlanModal
+        className="plan-modal"
+        {...{ modal, setModal, plan, loadingPlan, setLoadingPlan }}
+      /> */}
     </div>
   );
 }

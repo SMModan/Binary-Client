@@ -42,6 +42,14 @@ export const publicHeaderRoutes = [
     showHeader: true,
     showSidebar: false,
   },
+  {
+    path: "/coupon",
+    component: Coupon,
+    name: "Coupon",
+    isShowInSidebar: false,
+    showHeader: true,
+    showSidebar: false,
+  },
 ];
 export const secureRoutes = [
   // {
@@ -68,14 +76,7 @@ export const secureRoutes = [
   //   showHeader: true,
   //   showSidebar: true,
   // },
-  // {
-  //   path: "/coupon",
-  //   component: Coupon,
-  //   name: "Coupon",
-  //   isShowInSidebar: true,
-  //   showHeader: true,
-  //   showSidebar: true,
-  // },
+  
   // {
   //   path: "/profile",
   //   component: UserProfile,

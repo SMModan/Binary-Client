@@ -44,9 +44,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
 function AdminNavbar(props) {
-  const { push } = useHistory();
+  const {
+    push,
+    location: { pathname },
+  } = useHistory();
   const isLoggedin = useSelector((state) => state.userDataReducer.isLoggedin);
 
+  const headerLinks = [
+    { path: "/home", name: "Plans" },
+    { path: "/coupon", name: "Coupons" },
+  ];
   const [collapseOpen, setcollapseOpen] = React.useState(false);
   const [modalSearch, setmodalSearch] = React.useState(false);
   const [color, setcolor] = React.useState("navbar-transparent");
@@ -102,7 +109,11 @@ function AdminNavbar(props) {
             {/* <NavbarBrand href="javascript:;" onClick={() => push("/home")}>
               {props.brandText}
             </NavbarBrand> */}
-            <NavItem>Plans</NavItem>
+            {headerLinks.map(({ path, name }) => (
+              <NavItem active={path === pathname} onClick={() => push(path)}>
+                {name}
+              </NavItem>
+            ))}
           </div>
           <NavbarToggler onClick={toggleCollapse}>
             <span className="navbar-toggler-bar navbar-kebab" />
@@ -147,7 +158,9 @@ function AdminNavbar(props) {
                       isLoggedin ? dispatch(logout(push)) : push("/login")
                     }
                   >
-                    <DropdownItem className="nav-item">{isLoggedin? 'Log out' : 'Log in'}</DropdownItem>
+                    <DropdownItem className="nav-item">
+                      {isLoggedin ? "Log out" : "Log in"}
+                    </DropdownItem>
                   </NavLink>
                 </DropdownMenu>
               </UncontrolledDropdown>

@@ -13687,3 +13687,16 @@ select.form-control option {
 .custom-plan.mt-72{
   margin-top: 72px;
 }
+.navbar  li{
+  list-style-type: none;
+  margin: 0px 12px;
+  font-size: 25px;
+}
+
+.navbar-wrapper > .active{
+  color: #e265ca; 
+}
+.navbar-wrapper >  li:hover, 
+.navbar-wrapper >  li:focus {
+  color: #e265ca;
+}

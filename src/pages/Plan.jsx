@@ -1,7 +1,7 @@
 import { Table } from "reactstrap";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCompany, getPlan, getProducts, logout } from "../redux/action";
+import { flushCompany, getCompany, getPlan, getProducts, logout } from "../redux/action";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPen,
@@ -26,6 +26,7 @@ export default function Plan() {
   const [loadingPlan, setLoadingPlan] = useState(false);
   useEffect(() => {
     dispatch(getCompany());
+    return () => dispatch(flushCompany());
   }, []);
   useEffect(() => {
     if (companyList.length) {
@@ -48,8 +49,9 @@ export default function Plan() {
     );
   return (
     <div className="custom-plan container mt-72 s-auto">
-      <div className="d-flex justify-content-end mb-4">
-        Company &nbsp; : &nbsp;
+      <div className="d-flex justify-content-end mb-4 align-items-center">
+        <span className="font-weight-bold h4 text-light m-0">Company :</span>
+        &nbsp; &nbsp;
         <Select
           className="w-25"
           value={selectedCompany}

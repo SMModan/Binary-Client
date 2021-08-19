@@ -12,7 +12,8 @@ export default (state = initialState, { type, payload }) => {
       return { ...state, couponList: payload, loading: false };
     case GET_COUPON_LIST.GET_COUPON_LIST_ERORR:
       return { ...state, error: payload, loading: false };
-
+    case GET_COUPON_LIST.FLUSH_COUPONS:
+      return { ...state, couponList: [], error: undefined, loading: false };
     default:
       return state;
   }

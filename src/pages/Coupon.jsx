@@ -1,7 +1,7 @@
 import { Table } from "reactstrap";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCompany, getCoupon, getProducts } from "../redux/action";
+import { getCompany, getCoupon, flushCompany } from "../redux/action";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPen,
@@ -14,7 +14,7 @@ import EditPlanModal from "../components/Plan/EditPlanModal";
 import { Button } from "reactstrap";
 import Select from "react-select";
 
-export default function Plan() {
+export default (function Plan() {
   const dispatch = useDispatch();
   const couponList = useSelector((state) => state.CouponReducer.couponList);
   const loading = useSelector((state) => state.CouponReducer.loading);
@@ -24,10 +24,11 @@ export default function Plan() {
   const [loadingPlan, setLoadingPlan] = useState(false);
   useEffect(() => {
     dispatch(getCompany());
+    return () => dispatch(flushCompany());
   }, []);
   useEffect(() => {
     if (companyList.length) {
-      dispatch(getCoupon(5||companyList[0].id));
+      dispatch(getCoupon(companyList[0].id));
       setSelectedCompany({
         label: companyList[0].Company_name,
         value: companyList[0].id,
@@ -46,8 +47,9 @@ export default function Plan() {
     );
   return (
     <div className="custom-plan container mt-72 s-auto">
-      <div className="d-flex justify-content-end mb-4">
-        Company &nbsp; : &nbsp;
+      <div className="d-flex justify-content-end mb-4 align-items-center">
+        <span className="font-weight-bold h4 text-light m-0">Company :</span>
+        &nbsp; &nbsp;
         <Select
           className="w-25"
           value={selectedCompany}
@@ -133,4 +135,4 @@ export default function Plan() {
       /> */}
     </div>
   );
-}
+});

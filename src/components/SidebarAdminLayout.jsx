@@ -18,6 +18,7 @@ export default function SidebarAdminLayout(props) {
   const [currentPathData, setCurrentPathData] = useState({
     showHeader: false,
     showSidebar: false,
+    noWrap: false,
   });
   React.useEffect(() => {
     const data = [...publicRoutes, ...secureRoutes, ...publicHeaderRoutes].find(
@@ -85,7 +86,9 @@ export default function SidebarAdminLayout(props) {
     return "Brand";
   };
 
-  return (
+  return currentPathData.noWrap ? (
+    props.children
+  ) : (
     <div className="wrapper">
       {currentPathData.showSidebar && ( // set it from router
         <Sidebar

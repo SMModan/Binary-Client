@@ -33,15 +33,13 @@ export default function Routes() {
   // }, [isLoggedin, isProfileCompleted, location.pathname]);
   return (
     <Switch>
-      {publicRoutes.map((item, index) => (
-        <Route key={index} {...item} />
-      ))}
       <SidebarAdminLayout>
+        {publicRoutes.map((item, index) => (
+          <Route key={index} {...item} />
+        ))}
         {publicHeaderRoutes.map((item, index) => (
           <Route key={index} {...item} />
         ))}
-      </SidebarAdminLayout>
-      <SidebarAdminLayout>
         {isLoggedin &&
           secureRoutes.map((item, index) => <Route key={index} {...item} />)}
       </SidebarAdminLayout>

@@ -45,7 +45,12 @@ const getCouponError = (payload) => (dispacth) => {
     payload,
   });
 };
-
+const flushCoupon = (payload) => (dispacth) => {
+  dispacth({
+    type: GET_COUPON_LIST.FLUSH_COUPONS,
+    payload,
+  });
+};
 export const deleteCoupon =
   (data, isEdit = 0, setLoading, isDelete = false) =>
   (dispacth) =>

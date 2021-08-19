@@ -15,22 +15,27 @@ export const publicRoutes = [
   {
     path: "/login",
     component: Login,
+    noWrap: true,
   },
   {
     path: "/register",
     component: Register,
+    noWrap: true,
   },
   {
     path: "/forgot-password",
     component: ForgotPassword,
+    noWrap: true,
   },
   {
     path: "/verify-OTP",
     component: VerifyOTP,
+    noWrap: true,
   },
   {
     path: "/reset-password",
     component: ResetPassword,
+    noWrap: true,
   },
 ];
 export const publicHeaderRoutes = [
@@ -38,6 +43,7 @@ export const publicHeaderRoutes = [
     path: "/home",
     component: Plan,
     name: "Dashboard",
+    noWrap: false,
     isShowInSidebar: false,
     showHeader: true,
     showSidebar: false,
@@ -46,6 +52,7 @@ export const publicHeaderRoutes = [
     path: "/coupon",
     component: Coupon,
     name: "Coupon",
+    noWrap: false,
     isShowInSidebar: false,
     showHeader: true,
     showSidebar: false,
@@ -76,13 +83,13 @@ export const secureRoutes = [
   //   showHeader: true,
   //   showSidebar: true,
   // },
-  
-  // {
-  //   path: "/profile",
-  //   component: UserProfile,
-  //   showHeader: true,
-  //   showSidebar: false,
-  // },
+
+  {
+    path: "/profile",
+    component: UserProfile,
+    showHeader: true,
+    showSidebar: false,
+  },
   // {
   //   path: "/complete-profile",
   //   component: CompleteProfilePage,

@@ -44,7 +44,11 @@ const getCompanyError = (payload) => (dispacth) => {
     payload,
   });
 };
-
+export const flushCompany = (payload) => (dispacth) => {
+  dispacth({
+    type: GET_COMAPNY_LIST.FLUSH_COMPANIES,
+  });
+};
 // export const deleteProduct = (data, isEdit = 0, setLoading, isDelete = false) => (
 //   dispacth
 // ) => dispacth(createProductInit(data, isEdit, setLoading, isDelete));

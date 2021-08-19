@@ -14,6 +14,8 @@ export default (state = initialState, { type, payload }) => {
       return { ...state, error: payload, loading: false };
     case GET_COMAPNY_LIST.GET_COMAPNY_LIST_ERORR:
       return { ...state, loading: false };
+    case GET_PLAN_LIST.FLUSH_PLANS:
+      return { ...state, planList: [], loading: false };
     default:
       return state;
   }

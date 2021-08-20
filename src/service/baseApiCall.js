@@ -78,11 +78,6 @@ export const apiCall = (
   }
   request
     .then((response) => {
-      console.log(
-        dyanamicConfig.showErrorToast,
-        response.data.success,
-        typeof response.data.error.message
-      );
       if (dyanamicConfig.showErrorToast && response.data.success === 0) {
         let error = response.data.error;
         toast.error(typeof error === "string" ? error : error.message);
@@ -101,6 +96,7 @@ export const apiCall = (
       }
     })
     .catch((error) => {
+      console.log(error)
       if (
         dyanamicConfig.showErrorToast &&
         error.response.data &&

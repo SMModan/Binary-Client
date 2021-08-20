@@ -175,7 +175,7 @@ const getProfileInit = (data) => (dispatch) => {
   apiCall(
     GET_PROFILE_SERVICE,
     data,
-    (res) => dispatch(getProfileSuccess(res.data.company)),
+    (res) => dispatch(getProfileSuccess(res.data.customer)),
     (err) => dispatch(getProfileError(err)),
     METHOD.GET,
     { addAuthrize: true }

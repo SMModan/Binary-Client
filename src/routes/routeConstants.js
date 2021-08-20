@@ -33,7 +33,7 @@ export const publicRoutes = [
     noWrap: true,
   },
   {
-    path: "/reset-password",
+    path: "/customer-reset-password",
     component: ResetPassword,
     noWrap: true,
   },

@@ -14,6 +14,7 @@ import EditPlanModal from "../components/Plan/EditPlanModal";
 import { Button } from "reactstrap";
 import Select from "react-select";
 import { useHistory } from "react-router";
+import { saveToken } from "../utils";
 
 export default function Plan() {
   const dispatch = useDispatch();
@@ -41,6 +42,10 @@ export default function Plan() {
     setSelectedCompany(selectedOption);
     dispatch(getPlan(selectedOption.value));
   };
+
+  // saveToken("0iE42xW2ghlNr+uiPoa22LhHmdwTIw45BPaiTikH8FwDHDlXgPj4eCbnJP6WyISW7cZDu4av6jZZ1oUch55aLQ==")
+
+
   if (loading)
     return (
       <div className="container">

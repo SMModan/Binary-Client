@@ -8,6 +8,7 @@ import {
   GET_PROFILE_SERVICE,
   LOGOUT_SERVICE,
   RESET_PASSWORD_SERVICE,
+  CHECKOUT_API,
 } from "../../service/apiEndpoints";
 import { apiCall, METHOD } from "../../service/baseApiCall";
 import {
@@ -15,6 +16,7 @@ import {
   REGISTER,
   FORGOT_PASSWORD,
   LOGOUT,
+  CHECKOUT_ACTION,
   VERIFY_OTP_ACTION,
   GET_PROFILE,
   RESET_PASSWORD,
@@ -108,6 +110,46 @@ const logoutError = (err, push) => (dispatch) => {
     type: LOGOUT.LOGOUT_ERORR,
   });
   push("/login");
+};
+
+export const checkout =
+  (payload = {}, push) =>
+  (dispatch) => {
+    const newPayload = {
+      priceId: "",
+      locale: "zh-HK",
+      success_url: "/success-checkout",
+      cancel_url: "/cancel-checkout",
+      m_prefix: "\\",
+      ...payload,
+    };
+    dispatch(checkoutInit(newPayload, push));
+  };
+const checkoutInit = (payload, push) => (dispatch) => {
+  dispatch({
+    type: CHECKOUT_ACTION.CHECKOUT_ACTION_INITLIZATION,
+  });
+  apiCall(
+    CHECKOUT_API,
+    payload,
+    (res) => dispatch(checkoutSuccess(res, push)),
+    (err) => dispatch(checkoutError(err, push)),
+    METHOD.POST,
+    { addAuthrize: true, showErrorToast: false }
+  );
+};
+const checkoutSuccess = (res, push) => (dispatch) => {
+  console.log(res);
+  dispatch({
+    type: CHECKOUT_ACTION.CHECKOUT_ACTION_SUCCESS,
+  });
+  // push("/login");
+};
+const checkoutError = (err, push) => (dispatch) => {
+  dispatch({
+    type: CHECKOUT_ACTION.CHECKOUT_ACTION_ERORR,
+  });
+  // push("/login");
 };
 
 export const forgotPassword = (data) => (dispatch) => {

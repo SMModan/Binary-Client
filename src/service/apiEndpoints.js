@@ -27,3 +27,6 @@ export const COUPON_UD = (id) => `/coupon/${id}`;
 
 // COMPANY LIST
 export const COMPANY_LIST = "/customer/companyList";
+
+// CHECKOUT API
+export const CHECKOUT_API = '/subscription/create-checkout-session'

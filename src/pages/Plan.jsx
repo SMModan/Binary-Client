@@ -1,7 +1,14 @@
 import { Table } from "reactstrap";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { flushCompany, getCompany, getPlan, getProducts, logout } from "../redux/action";
+import {
+  flushCompany,
+  getCompany,
+  getPlan,
+  getProducts,
+  logout,
+  checkout,
+} from "../redux/action";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPen,
@@ -18,6 +25,7 @@ import { useHistory } from "react-router";
 export default function Plan() {
   const dispatch = useDispatch();
   const { push } = useHistory();
+  const isLoggedin = useSelector((state) => state.userDataReducer.isLoggedin);
   const planList = useSelector((state) => state.PlanReducer.planList);
   const companyList = useSelector((state) => state.CompanyReducer.companyList);
   const loading = useSelector((state) => state.PlanReducer.loading);
@@ -104,7 +112,11 @@ export default function Plan() {
                         <div class="mt-3">
                           <Button
                             onClick={() => {
-                              dispatch(logout(push));
+                              isLoggedin
+                                ? dispatch(
+                                    checkout({ priceId: item.unique_id }, push)
+                                  )
+                                : dispatch(logout(push));
                             }}
                           >
                             Subscribe

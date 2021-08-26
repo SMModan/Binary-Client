@@ -6,9 +6,9 @@ import Register from "../pages/Register";
 import VerifyOTP from "../pages/VerifyOTP";
 import ResetPassword from "../pages/ResetPassword";
 import UserProfile from "../pages/UserProfile";
-import CompleteProfilePage from "../pages/CompleteProfilePage";
+import CheckoutCancel from "../pages/CheckoutCancel";
 import Plan from "../pages/Plan";
-import ProductList from "../pages/ProductList";
+import CheckoutSuccess from "../pages/CheckoutSuccess";
 import Coupon from "../pages/Coupon";
 
 export const publicRoutes = [
@@ -59,14 +59,22 @@ export const publicHeaderRoutes = [
   },
 ];
 export const secureRoutes = [
-  // {
-  //   path: "/home",
-  //   component: Plan,
-  //   name: "Dashboard",
-  //   isShowInSidebar: false,
-  //   showHeader: true,
-  //   showSidebar: false,
-  // },
+  {
+    path: "/success-checkout",
+    component: CheckoutSuccess,
+    // noWrap: true,
+    isShowInSidebar: false,
+    showHeader: true,
+    showSidebar: false,
+  },
+  {
+    path: "/cancel-checkout",
+    component: CheckoutCancel,
+    // noWrap: true,
+    isShowInSidebar: false,
+    showHeader: true,
+    showSidebar: false,
+  },
   // {
   //   path: "/plan",
   //   component: Plan,

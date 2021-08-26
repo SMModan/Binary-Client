@@ -33,17 +33,21 @@ export default function Routes() {
   // }, [isLoggedin, isProfileCompleted, location.pathname]);
   return (
     <Switch>
-      <SidebarAdminLayout>
         {publicRoutes.map((item, index) => (
           <Route key={index} {...item} />
         ))}
+      <SidebarAdminLayout>
         {publicHeaderRoutes.map((item, index) => (
           <Route key={index} {...item} />
         ))}
+      </SidebarAdminLayout>
+      <SidebarAdminLayout>
+
         {isLoggedin &&
           secureRoutes.map((item, index) => <Route key={index} {...item} />)}
-      </SidebarAdminLayout>
       <Route render={() => <Redirect to="/home" />} />
+      </SidebarAdminLayout>
+
     </Switch>
   );
 }

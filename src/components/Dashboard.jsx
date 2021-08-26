@@ -49,11 +49,13 @@ import {
   chartExample3,
   chartExample4,
 } from "../variables/charts";
+import { saveToken } from "../utils";
 export default function Dashboard() {
   const [bigChartData, setbigChartData] = React.useState("data1");
   const setBgChartData = (name) => {
     setbigChartData(name);
   };
+
   return (
     <div className="content">
       <Row>

@@ -20,15 +20,22 @@ import { GET_STRIPE_ACCOUNT_STATUS } from "../service";
 
 export default function StripeStatus() {
   return (
-    <div className="wrapper fadeInDown custom-input">
-      <div className="fadeIn first">
-        <FontAwesomeIcon
-          className="m-2 text-primary"
-          size="4x"
-          icon={faStopCircle}
-        />
-      </div>
-      <h3 className="text-body">Cancelled</h3>
+    <div className="container mt-4">
+    <div className="row m-4">
+       <div className="col-md-6 mx-auto mt-4">
+          <div className="payment mt-4">
+             <div className="payment_header mt-4">
+                <div className="check"><i className="fa fa-check" aria-hidden="true"></i></div>
+             </div>
+             <div className="content mt-4">
+                <h1>Payment Failed !</h1>
+                <p>Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. </p>
+                <Link to="/home">Try Again!</Link>
+             </div>
+             
+          </div>
+       </div>
     </div>
+ </div>
   );
 }

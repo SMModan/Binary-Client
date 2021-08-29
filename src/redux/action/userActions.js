@@ -116,13 +116,14 @@ export const checkout =
   (payload = {}, push) =>
   (dispatch) => {
     const newPayload = {
-      priceId: "",
       locale: "zh-HK",
-      success_url: "/success-checkout",
-      cancel_url: "/cancel-checkout",
-      m_prefix: "\\",
+      success_url: "http://localhost:3000/success-checkout",
+      cancel_url: "http://localhost:3000/cancel-checkout",
+      m_prefix: "binery",
       ...payload,
     };
+    console.log("newPayload  ==>",newPayload)
+    console.log("payload  ==>",payload)
     dispatch(checkoutInit(newPayload, push));
   };
 const checkoutInit = (payload, push) => (dispatch) => {
@@ -139,17 +140,19 @@ const checkoutInit = (payload, push) => (dispatch) => {
   );
 };
 const checkoutSuccess = (res, push) => (dispatch) => {
-  console.log(res);
+  console.log("checkoutSuccess",res.data.url);
+  const url = res.data.url
   dispatch({
     type: CHECKOUT_ACTION.CHECKOUT_ACTION_SUCCESS,
   });
+  window.open(url,"_self")
   // push("/login");
 };
 const checkoutError = (err, push) => (dispatch) => {
   dispatch({
     type: CHECKOUT_ACTION.CHECKOUT_ACTION_ERORR,
   });
-  // push("/login");
+   push("/cancel-checkout");
 };
 
 export const forgotPassword = (data) => (dispatch) => {

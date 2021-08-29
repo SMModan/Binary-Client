@@ -57,8 +57,6 @@ export const publicHeaderRoutes = [
     showHeader: true,
     showSidebar: false,
   },
-];
-export const secureRoutes = [
   {
     path: "/success-checkout",
     component: CheckoutSuccess,
@@ -66,8 +64,7 @@ export const secureRoutes = [
     isShowInSidebar: false,
     showHeader: true,
     showSidebar: false,
-  },
-  {
+  }, {
     path: "/cancel-checkout",
     component: CheckoutCancel,
     // noWrap: true,
@@ -75,6 +72,10 @@ export const secureRoutes = [
     showHeader: true,
     showSidebar: false,
   },
+];
+export const secureRoutes = [
+ 
+ 
   // {
   //   path: "/plan",
   //   component: Plan,
@@ -97,7 +98,7 @@ export const secureRoutes = [
     component: UserProfile,
     showHeader: true,
     showSidebar: false,
-  },
+  }
   // {
   //   path: "/complete-profile",
   //   component: CompleteProfilePage,

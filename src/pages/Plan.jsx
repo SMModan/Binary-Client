@@ -39,7 +39,7 @@ export default function Plan() {
   }, []);
   useEffect(() => {
     if (companyList.length) {
-      dispatch(getPlan(1 || companyList[0].id));
+      dispatch(getPlan( companyList[0].id)||2);
       setSelectedCompany({
         label: companyList[0].Company_name,
         value: companyList[0].id,
@@ -119,7 +119,7 @@ export default function Plan() {
                             onClick={() => {
                               isLoggedin
                                 ? dispatch(
-                                    checkout({ priceId: item.unique_id }, push)
+                                    checkout({ priceId: item.unique_id,company_id:`${item.company_id}` }, push)
                                   )
                                 : dispatch(logout(push));
                             }}

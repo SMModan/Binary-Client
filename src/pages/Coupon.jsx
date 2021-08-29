@@ -13,6 +13,8 @@ import {
 import EditPlanModal from "../components/Plan/EditPlanModal";
 import { Button } from "reactstrap";
 import Select from "react-select";
+import { toast } from "react-toastify";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export default (function Plan() {
   const dispatch = useDispatch();
@@ -45,6 +47,7 @@ export default (function Plan() {
         <div className="cover-spin" role="status" />
       </div>
     );
+
   return (
     <div className="custom-plan container mt-72 s-auto">
       <div className="d-flex justify-content-end mb-4 align-items-center">
@@ -118,7 +121,17 @@ export default (function Plan() {
                     />
                   </td> */}
                   <td className="text-center">
-                    <Button>Subscribe</Button>
+                    <CopyToClipboard
+                      text={item.code}
+                      onCopy={() => {
+                        toast.success("copied to clipboard");
+                      }}
+                    >
+                      <Button
+                      >
+                        Copy To ClipBoard
+                      </Button>
+                    </CopyToClipboard>
                   </td>
                 </tr>
               ))}

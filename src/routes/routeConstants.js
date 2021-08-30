@@ -10,6 +10,7 @@ import CheckoutCancel from "../pages/CheckoutCancel";
 import Plan from "../pages/Plan";
 import CheckoutSuccess from "../pages/CheckoutSuccess";
 import Coupon from "../pages/Coupon";
+import Subscriptions from "../pages/Subscriptions";
 
 export const publicRoutes = [
   {
@@ -52,6 +53,15 @@ export const publicHeaderRoutes = [
     path: "/coupon",
     component: Coupon,
     name: "Coupon",
+    noWrap: false,
+    isShowInSidebar: false,
+    showHeader: true,
+    showSidebar: false,
+  },
+  {
+    path: "/subscription",
+    component: Subscriptions,
+    name: "Subscriptions",
     noWrap: false,
     isShowInSidebar: false,
     showHeader: true,

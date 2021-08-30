@@ -25,6 +25,8 @@ export const COUPON_LIST = "/customer/companyCouponList";
 export const COUPON_CREATE = "/coupon/create";
 export const COUPON_UD = (id) => `/coupon/${id}`;
 
+// SUBSCRIPTION API END POINTS
+export const SUBSCRIPTION_LIST ="/subscription/customerSubscription"
 // COMPANY LIST
 export const COMPANY_LIST = "/customer/companyList";
 

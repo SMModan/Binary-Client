@@ -53,6 +53,7 @@ function AdminNavbar(props) {
   const headerLinks = [
     { path: "/home", name: "Plans" },
     { path: "/coupon", name: "Coupons" },
+    { path: "/subscription", name: "Subscriptions" },
   ];
   const [collapseOpen, setcollapseOpen] = React.useState(false);
   const [modalSearch, setmodalSearch] = React.useState(false);
